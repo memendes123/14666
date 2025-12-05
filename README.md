@@ -114,7 +114,17 @@ O bot usa `NOTIFY_CHAT` para enviar mensagens estruturadas:
 - Bloqueios do Guardian e fechos de emergência.
 
 ## 📡 Comandos de Telegram
-O código atual é focado em processamento automático de sinais do canal definido. Não há comandos `/status` ou outros handlers de chat implementados neste repositório. Para comandos adicionais, acrescenta um handler no `telegram_handler.py` usando `@client.on(events.NewMessage(pattern="/..."))` e envia respostas com `notify()`.
+Os comandos são respondidos no `NOTIFY_CHAT` configurado (para evitar confusão com o canal de sinais). Todos estão implementados no `telegram_handler.py`:
+
+| Comando     | Descrição                                                |
+| ----------- | -------------------------------------------------------- |
+| `/start`    | Mensagem de boas-vindas e lista rápida de comandos.      |
+| `/status`   | Estado do bot: mercado aberto/fechado, Guardian, último sinal, número de sinais e trades monitorizados. |
+| `/sinais`   | Lista dos últimos sinais recebidos no dia.               |
+| `/risco`    | Percentagem de risco por trade (`RISK_PERCENT`).         |
+| `/contas`   | Contas MT5 carregadas a partir do `config.py`.           |
+| `/guardian` | Resumo das regras ativas do Guardian Shield.             |
+| `/reset`    | Limpa o histórico de sinais do dia.                      |
 
 ## ▶️ Como executar
 ### Método recomendado
