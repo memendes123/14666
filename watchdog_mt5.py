@@ -1,10 +1,12 @@
-import psutil
+import os
 import subprocess
 import time
-import os
+
+import psutil
+
 from config import ACCOUNTS
-from telegram_notifier import notify
 from logger import log
+from telegram_notifier import notify
 
 # Indica ao bot quando pode enviar notificações
 TELEGRAM_READY = False
