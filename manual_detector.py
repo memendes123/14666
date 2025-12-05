@@ -1,8 +1,10 @@
 import time
+
 import MetaTrader5 as mt5
+
 from config import ACCOUNTS, MAGIC_NUMBER
-from telegram_notifier import notify
 from logger import log
+from telegram_notifier import notify
 
 # Memória de posições detectadas
 KNOWN_POSITIONS = {}

@@ -1,9 +1,11 @@
-import time
 import threading
+import time
+
 import MetaTrader5 as mt5
+
+from config import ACCOUNTS, MAGIC_NUMBER, GUARDIAN
 from logger import log
 from telegram_notifier import notify
-from config import ACCOUNTS, MAGIC_NUMBER, GUARDIAN
 
 # ============================================================
 #   ESTRUTURA DE TRADES ABERTOS (NOVO FORMATO)
