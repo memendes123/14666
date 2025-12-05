@@ -1,15 +1,16 @@
-from telethon import TelegramClient, events
-import threading
 import asyncio
+import threading
 import time
-from datetime import datetime, date
+from datetime import date, datetime
+
+from telethon import TelegramClient, events
 
 from config import API_ID, API_HASH, BOT_TOKEN, TELEGRAM_CHANNEL
-from trade_executor import execute_trade
+from logger import log
 from signal_parser import parse_signal
 from telegram_notifier import notify
+from trade_executor import execute_trade
 from watchdog_mt5 import telegram_is_ready
-from logger import log
 
 
 # ============================================================
