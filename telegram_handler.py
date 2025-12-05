@@ -8,6 +8,7 @@ from config import API_ID, API_HASH, BOT_TOKEN, TELEGRAM_CHANNEL
 from trade_executor import execute_trade
 from signal_parser import parse_signal
 from telegram_notifier import notify
+from watchdog_mt5 import telegram_is_ready
 from logger import log
 
 
@@ -43,11 +44,14 @@ async def start_bot():
 
     await client.start(bot_token=BOT_TOKEN)
     log.info("[BOOT] Telegram iniciado com sucesso.")
-    notify("🤖 *Bot Telegram iniciado*")
 
     # dispatcher do notifier (síncrono)
     from telegram_notifier import start_notifier
     start_notifier()
+
+    telegram_is_ready()
+
+    notify("🤖 *Bot Telegram iniciado*")
 
 
 # ============================================================
