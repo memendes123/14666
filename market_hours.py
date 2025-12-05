@@ -1,7 +1,8 @@
 import time
 from datetime import datetime, timedelta, timezone
-from telegram_notifier import notify
+
 from logger import log
+from telegram_notifier import notify
 
 # FLAGS
 sent_close_msg = False
