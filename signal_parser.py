@@ -67,9 +67,12 @@ def parse_signal(raw):
         # DIREÇÃO (BUY / SELL)
         # --------------------------------------------
         direction = None
-        if "BUY" in text:
+        if "BUY" in text and "SELL" in text:
+            # prefer the first occurrence to evitar conflitos
+            direction = "BUY" if text.index("BUY") < text.index("SELL") else "SELL"
+        elif "BUY" in text:
             direction = "BUY"
-        if "SELL" in text:
+        elif "SELL" in text:
             direction = "SELL"
 
         if not direction:
@@ -78,7 +81,7 @@ def parse_signal(raw):
         # --------------------------------------------
         # SÍMBOLO (XAUUSD / XAUUSD.p / GOLD / etc)
         # --------------------------------------------
-        symbol_match = re.search(r"(XAUUSD\w*|GOLD|XAU)", text)
+        symbol_match = re.search(r"(XAUUSD\w*|GOLD|XAU|[A-Z]{3,10}\w*)", text)
         if not symbol_match:
             return None
 

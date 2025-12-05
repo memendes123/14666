@@ -62,6 +62,15 @@ def _execute_for_account(acc, signal):
         return
 
     # 3) Se ENTRY é market ou None → usar preço atual
+    #    Não abrir nova posição se já existir uma ordem neste símbolo
+    existing_positions = mt5.positions_get(symbol=symbol)
+    if existing_positions:
+        log.warning(
+            f"[{login}] Já existe posição aberta em {symbol}; skip até fechar."
+        )
+        mt5.shutdown()
+        return
+
     tick = mt5.symbol_info_tick(symbol)
     if not tick:
         log.error(f"[{login}] Tick não encontrado para {symbol}.")
