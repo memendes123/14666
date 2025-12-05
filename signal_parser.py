@@ -1,5 +1,7 @@
 import re
+
 from logger import log
+
 
 # ============================================================
 #   NORMALIZAÇÃO DE SÍMBOLOS (SUPORTE COMPLETO)
@@ -49,7 +51,7 @@ def clean_number(n):
     n = n.replace(",", ".")  # caso apareça vírgula
     try:
         return float(n)
-    except:
+    except Exception:
         return None
 
 
@@ -65,9 +67,12 @@ def parse_signal(raw):
         # DIREÇÃO (BUY / SELL)
         # --------------------------------------------
         direction = None
-        if "BUY" in text:
+        if "BUY" in text and "SELL" in text:
+            # prefer the first occurrence to evitar conflitos
+            direction = "BUY" if text.index("BUY") < text.index("SELL") else "SELL"
+        elif "BUY" in text:
             direction = "BUY"
-        if "SELL" in text:
+        elif "SELL" in text:
             direction = "SELL"
 
         if not direction:
@@ -76,7 +81,7 @@ def parse_signal(raw):
         # --------------------------------------------
         # SÍMBOLO (XAUUSD / XAUUSD.p / GOLD / etc)
         # --------------------------------------------
-        symbol_match = re.search(r"(XAUUSD\w*|GOLD|XAU)", text)
+        symbol_match = re.search(r"(XAUUSD\w*|GOLD|XAU|[A-Z]{3,10}\w*)", text)
         if not symbol_match:
             return None
 
@@ -142,7 +147,9 @@ def parse_signal(raw):
             "type": "ENTRY"  # único tipo tratado por enquanto
         }
 
-        log.info(f"[PARSER] OK → {symbol} {direction} @ {entry} | SL={sl} | TP1={tp1}")
+        log.info(
+            f"[PARSER] OK → {symbol} {direction} @ {entry} | SL={sl} | TP1={tp1}"
+        )
         return result
 
     except Exception as e:

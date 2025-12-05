@@ -1,8 +1,10 @@
-import MetaTrader5 as mt5
 import time
-from logger import log
+
+import MetaTrader5 as mt5
+
 from config import ACCOUNTS, MAGIC_NUMBER
 from guardian import guardian_check
+from logger import log
 from price_watcher import register_trade
 
 
