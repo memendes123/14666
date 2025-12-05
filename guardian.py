@@ -1,10 +1,10 @@
 import time
+
 import MetaTrader5 as mt5
-from datetime import datetime
-from config import GUARDIAN, ACCOUNTS
+
+from config import ACCOUNTS, GUARDIAN
 from logger import log
 from telegram_notifier import notify
-
 
 # ============================================================
 #   ESTADO INTERNO DO GUARDIAN

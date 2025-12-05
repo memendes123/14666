@@ -1,5 +1,7 @@
 import re
+
 from logger import log
+
 
 # ============================================================
 #   NORMALIZAÇÃO DE SÍMBOLOS (SUPORTE COMPLETO)
@@ -49,7 +51,7 @@ def clean_number(n):
     n = n.replace(",", ".")  # caso apareça vírgula
     try:
         return float(n)
-    except:
+    except Exception:
         return None
 
 
@@ -142,7 +144,9 @@ def parse_signal(raw):
             "type": "ENTRY"  # único tipo tratado por enquanto
         }
 
-        log.info(f"[PARSER] OK → {symbol} {direction} @ {entry} | SL={sl} | TP1={tp1}")
+        log.info(
+            f"[PARSER] OK → {symbol} {direction} @ {entry} | SL={sl} | TP1={tp1}"
+        )
         return result
 
     except Exception as e:
